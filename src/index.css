@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+@theme {
+  --color-puma-bright: #3b82f6; 
+  --color-puma-cyan: #06b6d4;   
+  --color-puma-dark: #041B4D;   
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+/* Scrollbar yang Recommended: Modern, Sporty, & Clean */
+::-webkit-scrollbar {
+  width: 8px; /* Sedikit lebih tebal dari 6px agar lebih mudah diklik */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1; /* Warna perak kebiruan yang sangat soft */
+  border-radius: 20px;
+
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #f1f5f9; /* Berubah jadi putih silver yang elegan saat di-hover */
+}
