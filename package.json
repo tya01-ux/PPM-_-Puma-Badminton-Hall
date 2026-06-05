@@ -1,11 +1,11 @@
 {
-  "name": "my-web-app",
+  "name": "project_myweb",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -13,12 +13,12 @@
     "@hookform/resolvers": "^5.2.2",
     "@tailwindcss/vite": "^4.2.4",
     "axios": "^1.16.1",
-    "lucide-react": "^1.17.0",
+    "lucide-react": "^1.8.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-hook-form": "^7.73.1",
     "react-icons": "^5.6.0",
-    "react-router-dom": "^7.17.0",
+    "react-router-dom": "^7.14.2",
     "recharts": "^3.8.1",
     "zod": "^4.3.6",
     "zustand": "^5.0.13"
