@@ -1,6 +1,6 @@
 import { Link as RouterLink } from "react-router-dom";
 import { MapPin, Phone, Mail } from "lucide-react";
-import logo from "../assets/logo.png";
+import Logo from "../assets/logo.png";
 
 export default function Footer() {
   return (
@@ -11,7 +11,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="flex flex-col gap-2">
             <RouterLink to="/" className="flex items-center">
-              <img src={logo} alt="Puma Badminton Hall" className="h-16 w-auto object-contain" />
+              <img src={Logo} alt="Puma Badminton Hall" className="h-16 w-auto object-contain" />
             </RouterLink>
             <p className="text-sm text-blue-100/60 leading-relaxed max-w-[280px]">
               Pusat olahraga badminton premium di Tegal. Fasilitas standar profesional untuk pengalaman bermain terbaik Anda.
