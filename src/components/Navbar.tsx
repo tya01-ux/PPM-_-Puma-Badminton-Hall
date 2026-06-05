@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Home, Calendar, ShieldCheck, Info, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { useScrollNavbar } from "../hooks/useScrollNavbar";
 import logo from "../assets/logo.png";
