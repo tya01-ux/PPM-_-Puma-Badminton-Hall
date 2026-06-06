@@ -3,13 +3,13 @@ import { Trophy, Users, ShieldCheck, Tag, Target, Calendar, BarChart3, Star } fr
 export const Features = () => {
   return (
     <section className="py-24 bg-white">
-      {/* Membatasi lebar agar tidak melar di layar ultra-wide */}
+      {/* Friendly */}
       <div className="max-w-7xl mx-auto px-6">
         
-        {/* Menggunakan items-start agar kolom kiri dan kanan tidak dipaksa sama tingginya */}
+        {/* Pake items-start */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-24 items-start">
           
-          {/* Sisi Kiri - Mengambil 7 dari 12 kolom */}
+          {/* Sisi Kiri */}
           <div className="lg:col-span-7 space-y-8">
             <div className="inline-block bg-blue-50 text-blue-600 px-6 py-2 rounded-full font-bold text-xs uppercase tracking-[0.2em]">
               Kenapa Memilih Kami?
@@ -32,7 +32,7 @@ export const Features = () => {
             </div>
           </div>
 
-          {/* Sisi Kanan - Produk Banner - Mengambil 5 dari 12 kolom */}
+          {/* Sisi Kanan */}
           <div className="lg:col-span-5 bg-[#041B4D] rounded-[2rem] p-10 flex flex-col items-start justify-center text-white shadow-2xl sticky top-24">
             <div className="space-y-6">
               <p className="text-blue-400 font-bold text-xs uppercase tracking-[0.3em]">Produk Kami</p>
@@ -45,7 +45,7 @@ export const Features = () => {
           </div>
         </div>
 
-        {/* Stats Bar - Tetap rapi dengan grid responsif */}
+        {/* Stats Bar */}
         <div className="bg-gray-50 rounded-[2rem] p-10 md:p-12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 border border-gray-100">
           <StatItem label="Pelanggan Puas" value="1000+" icon={<Users />} />
           <StatItem label="Tahun Beroperasi" value="5+" icon={<Calendar />} />
