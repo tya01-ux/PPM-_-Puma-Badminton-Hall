@@ -2,7 +2,7 @@ import { Trophy, Users, ShieldCheck, Tag } from "lucide-react";
 
 export const Features = () => {
   return (
-    <section className="py-24 bg-white">
+    <section className="mt-32 md:mt-48 px-6 py-12 bg-white">
       {/* Friendly */}
       <div className="max-w-7xl mx-auto px-6">
         
