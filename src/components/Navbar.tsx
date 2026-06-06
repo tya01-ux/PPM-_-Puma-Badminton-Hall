@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { useScrollNavbar } from "../hooks/useScrollNavbar";
-import logo from "../assets/logo.png";
+import Logo from "../assets/Logo.png";
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,7 +19,7 @@ export const Navbar = () => {
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-puma-dark/90 backdrop-blur-md shadow-lg shadow-black/20" : "bg-puma-dark shadow-md shadow-black/10"}`}>
       <div className="px-6 py-1 flex items-center justify-between w-full max-w-7xl mx-auto">
         <NavLink to="/" className="shrink-0 pl-2">
-          <img src={logo} alt="Puma Badminton Hall" className="h-24 md:h-28 w-auto object-contain transition-transform hover:scale-105" />
+          <img src={Logo} alt="Puma Badminton Hall" className="h-24 md:h-28 w-auto object-contain transition-transform hover:scale-105" />
         </NavLink>
 
         {/* DESKTOP MENU */}
