@@ -2,7 +2,7 @@ import { Trophy, Users, ShieldCheck, Tag } from "lucide-react";
 
 export const Features = () => {
   return (
-    <section className="mt-32 md:mt-48 px-6 py-12 bg-white">
+    <section className="mt-32 md:mt-48 px-6 ">
       {/* Friendly */}
       <div className="max-w-7xl mx-auto px-6">
         
@@ -11,9 +11,9 @@ export const Features = () => {
           
           {/* Sisi Kiri */}
           <div className="lg:col-span-7 space-y-8">
-            <div className="inline-block bg-blue-50 text-blue-600 px-6 py-2 rounded-full font-bold text-xs uppercase tracking-[0.2em]">
-              Kenapa Memilih Kami?
-            </div>
+         <div className="inline-block bg-blue-500/10 text-blue-500 px-8 py-3 rounded-full font-bold text-xs uppercase tracking-[0.2em] border border-blue-400/30 shadow-[0_0_15px_rgba(59,130,246,0.3)] hover:shadow-[0_0_20px_rgba(59,130,246,0.5)] transition-shadow">
+  Kenapa Memilih Kami?
+</div>
             
             <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 leading-[1.1]">
               Pengalaman Bermain yang <br />
