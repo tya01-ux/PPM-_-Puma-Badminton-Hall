@@ -57,13 +57,15 @@ export default function Footer() {
             <div className="w-full">
               <h4 className="font-bold mb-6 text-white">Lokasi</h4>
               
+              {/* Map */}
               <div className="w-full aspect-video rounded-xl overflow-hidden border border-white/10 shadow-xl">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.598687251786!2d109.13576087573024!3d-6.939227967964645!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6fb9b56f8749a9%3A0x867b7f4391694f4b!2sPUMA%20BHARATANGKAS%20BADMINTON%20HALL!5e0!3m2!1sid!2sid!4v1680000000000"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.857001895736!2d109.12018091089787!3d-6.907697167575811!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6fb9003739875b%3A0xc4f34ae5e9f534b2!2sPUMA%20BHARATANGKAS%20BADMINTON%20HALL!5e0!3m2!1sid!2sid!4v1780728283088!5m2!1sid!2sid"
                   className="w-full h-full border-0"
-                  loading="lazy"
-                  title="Lokasi Puma Bharatangkas Badminton Hall"
                   allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Puma Bharatangkas Badminton Hall"
                 ></iframe>
               </div>
             </div>
