@@ -1,4 +1,4 @@
-import { Trophy, Users, ShieldCheck, Tag, Target, Calendar, BarChart3, Star } from "lucide-react";
+import { Trophy, Users, ShieldCheck, Tag } from "lucide-react";
 
 export const Features = () => {
   return (
@@ -44,15 +44,16 @@ export const Features = () => {
             </div>
           </div>
         </div>
-
-        {/* Stats Bar */}
+        
+        {/* 
+        Stats Bar
         <div className="bg-gray-50 rounded-[2rem] p-10 md:p-12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 border border-gray-100">
           <StatItem label="Pelanggan Puas" value="1000+" icon={<Users />} />
           <StatItem label="Tahun Beroperasi" value="5+" icon={<Calendar />} />
           <StatItem label="Lapangan" value="5" icon={<Target />} />
           <StatItem label="Kualitas Produk" value="Premium" icon={<BarChart3 />} />
           <StatItem label="Terpercaya" value="Sejak 2019" icon={<Star />} />
-        </div>
+        </div> */}
       </div>
     </section>
   );
@@ -66,12 +67,12 @@ const FeatureCard = ({ icon, title, desc }: { icon: any, title: string, desc: st
   </div>
 );
 
-const StatItem = ({ label, value, icon }: { label: string, value: string, icon: any }) => (
-  <div className="flex flex-col items-center justify-center text-center space-y-2">
-    <div className="text-blue-600 bg-white p-3 rounded-xl shadow-sm">{icon}</div>
-    <div className="space-y-0.5">
-      <p className="text-2xl font-black text-gray-900">{value}</p>
-      <p className="text-gray-500 text-[10px] uppercase tracking-[0.1em] font-bold">{label}</p>
-    </div>
-  </div>
-);
+// const StatItem = ({ label, value, icon }: { label: string, value: string, icon: any }) => (
+//   <div className="flex flex-col items-center justify-center text-center space-y-2">
+//     <div className="text-blue-600 bg-white p-3 rounded-xl shadow-sm">{icon}</div>
+//     <div className="space-y-0.5">
+//       <p className="text-2xl font-black text-gray-900">{value}</p>
+//       <p className="text-gray-500 text-[10px] uppercase tracking-[0.1em] font-bold">{label}</p>
+//     </div>
+//   </div>
+// );
