@@ -6,10 +6,15 @@ import About from './pages/About';
 import LoginForm from './pages/LoginForm';
 import RegisterForm from './pages/RegisterForm'; 
 import MainLayout from './layouts/MainLayout';
+import FloatingWhatsapp from './components/ui/FloatingWhatsapp';
 
 function App() {
   return (
     <Router>
+      
+    {/* FLOATING BUTTON */}
+      <FloatingWhatsapp />
+
       <Routes>
         {/* LAYOUT DENGAN NAVBAR (Public) */}
         <Route element={<MainLayout />}>
