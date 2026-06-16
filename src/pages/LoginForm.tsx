@@ -7,6 +7,10 @@ import { z } from "zod";
 import { Button } from "../components/ui/Button";
 import { Link } from "react-router-dom";
 
+// Percobaan login
+import { useNavigate } from "react-router-dom";
+import { useAuthStore } from "../store/useAuthStore";
+
 const schema = z.object({
   username: z.string().min(4, { message: "Username minimal 4 karakter" }),
   password: z.string().min(4, { message: "Password minimal 4 karakter" }),
@@ -20,28 +24,56 @@ interface FormData {
 export default function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
 
+  const navigate = useNavigate();
+  const login = useAuthStore((state) => state.login);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
-    defaultValues: { username: "", password: "" },
+    defaultValues: {
+      username: "",
+      password: "",
+    },
   });
 
-  const onSubmit = async (data: FormData) => {
-    setIsLoading(true);
-    console.log("Data Login:", data);
-    setTimeout(() => {
-      setIsLoading(false);
-      alert("Login berhasil!");
-    }, 1500);
-  };
+const onSubmit = async (data: FormData) => {
+  setIsLoading(true);
+
+  try {
+    // Simulasi pengecekan role
+    if (data.username === "admin") {
+      login({
+        id: 1,
+        name: "Administrator",
+        role: "admin",
+      });
+
+      // Redirect khusus admin
+      navigate("/admin/dashboard");
+    } else {
+      login({
+        id: 2,
+        name: data.username,
+        role: "user",
+      });
+
+      // Redirect untuk user biasa
+      navigate("/");
+    }
+  } catch (error) {
+    console.error("Login failed:", error);
+  } finally {
+    setIsLoading(false);
+  }
+};
+
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-50 p-4">
-      {/* Container utama untuk efek tumpuk */}
-      <div className="relative w-full max-w-md">
+<div className="flex items-center justify-center p-4 py-40">
+        <div className="relative w-full max-w-md">
         
         {/* KARTU BELAKANG (Layer kedua - warna biru muda agar kontras) */}
         <div className="absolute inset-0 translate-x-3 translate-y-3 bg-blue-100 rounded-3xl border border-blue-200 shadow-sm"></div>
@@ -68,6 +100,7 @@ export default function LoginForm() {
               nama="password"
               register={register}
               error={errors.password?.message}
+              placeholder="Masukkan password anda" 
             />
 
             <div className="pt-2">
