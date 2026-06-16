@@ -2,7 +2,6 @@ import {
   CalendarDays,
   Users,
   BadgeDollarSign,
-  TrendingUp,
   ArrowUpRight,
 } from "lucide-react";
 import { GiShuttlecock } from "react-icons/gi";
@@ -10,70 +9,6 @@ import { GiShuttlecock } from "react-icons/gi";
 export default function DashboardIndex() {
   return (
     <div className="space-y-8">
-      {/* HERO WELCOME */}
-      <section className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-[#041B4D] via-[#0A2E7A] to-blue-600 p-6 md:p-10 text-white shadow-[0_20px_60px_rgba(4,27,77,0.35)]">
-        {/* Glow */}
-        <div className="absolute -top-20 -right-20 h-72 w-72 rounded-full bg-blue-400/20 blur-3xl" />
-        <div className="absolute -bottom-20 left-20 h-60 w-60 rounded-full bg-cyan-400/10 blur-3xl" />
-
-        {/* Shuttlecock Decoration */}
-        <div className="absolute right-4 bottom-0 hidden md:block text-[180px] text-white/5">
-          🏸
-        </div>
-
-        <div className="relative z-10">
-          <div className="inline-flex items-center gap-2 rounded-full border border-blue-300/20 bg-white/10 px-4 py-2 backdrop-blur-sm">
-            <TrendingUp size={16} />
-            <span className="text-sm font-medium">
-              Puma-Bharatangkas Admin Panel
-            </span>
-          </div>
-
-          <h1 className="mt-6 text-3xl md:text-5xl font-extrabold leading-tight">
-            Selamat Datang,
-            <br />
-            <span className="text-blue-200">Administrator 👋</span>
-          </h1>
-
-          <p className="mt-5 max-w-2xl text-sm md:text-base leading-relaxed text-blue-100">
-            Kelola booking, lapangan, pengguna, dan pantau seluruh
-            aktivitas Puma-Bharatangkas Badminton Hall melalui dashboard
-            yang modern, cepat, dan mudah digunakan.
-          </p>
-
-          <div className="mt-8 flex flex-wrap gap-4">
-            <div className="rounded-2xl bg-white/10 backdrop-blur-md border border-white/10 px-5 py-3">
-              <p className="text-xs uppercase text-blue-200">
-                Booking Hari Ini
-              </p>
-
-              <h3 className="text-2xl font-bold">
-                18
-              </h3>
-            </div>
-
-            <div className="rounded-2xl bg-white/10 backdrop-blur-md border border-white/10 px-5 py-3">
-              <p className="text-xs uppercase text-blue-200">
-                Lapangan Aktif
-              </p>
-
-              <h3 className="text-2xl font-bold">
-                5
-              </h3>
-            </div>
-
-            <div className="rounded-2xl bg-white/10 backdrop-blur-md border border-white/10 px-5 py-3">
-              <p className="text-xs uppercase text-blue-200">
-                Pengguna
-              </p>
-
-              <h3 className="text-2xl font-bold">
-                256
-              </h3>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* STATISTICS */}
       <section className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">

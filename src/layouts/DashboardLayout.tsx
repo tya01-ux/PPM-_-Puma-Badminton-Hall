@@ -11,12 +11,11 @@ import {
   X,
 } from "lucide-react";
 import { GiShuttlecock } from "react-icons/gi";
-import logo from "../assets/logo.png";
+import Logo from "../assets/Logo.png";
 
 export default function DashboardLayout() {
   const logout = useAuthStore((state) => state.logout);
   const navigate = useNavigate();
-
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const handleLogout = () => {
@@ -24,9 +23,7 @@ export default function DashboardLayout() {
     navigate("/loginForm");
   };
 
-  const closeSidebar = () => {
-    setSidebarOpen(false);
-  };
+  const closeSidebar = () => setSidebarOpen(false);
 
   const navClass = ({ isActive }: { isActive: boolean }) =>
     `flex items-center gap-4 px-5 py-4 rounded-2xl text-sm font-medium transition-all duration-300 ${
@@ -40,31 +37,10 @@ export default function DashboardLayout() {
       {/* MOBILE HEADER */}
       <header className="lg:hidden sticky top-0 z-40 bg-[#041B4D] border-b border-blue-800 shadow-lg">
         <div className="flex items-center justify-between px-4 py-4">
-          {/* LOGO MOBILE */}
-          <img
-            src={logo}
-            alt="Puma Logo"
-            className="
-              h-20
-              w-auto
-              object-contain
-              transition-transform
-              duration-300
-            "
-          />
-
-          {/* HAMBURGER */}
+          <img src={Logo} alt="Puma Logo" className="h-20 w-auto object-contain transition-transform duration-300" />
           <button
             onClick={() => setSidebarOpen(true)}
-            className="
-              p-3
-              rounded-2xl
-              text-white
-              hover:bg-white/10
-              active:scale-95
-              transition-all
-              duration-300
-            "
+            className="p-3 rounded-2xl text-white hover:bg-white/10 active:scale-95 transition-all duration-300"
           >
             <Menu size={30} />
           </button>
@@ -82,110 +58,44 @@ export default function DashboardLayout() {
 
         {/* SIDEBAR */}
         <aside
-          className={`
-            fixed top-0 left-0 z-50
-            h-screen w-80
-            bg-gradient-to-b
-            from-[#041B4D]
-            via-[#0A2E7A]
-            to-[#0F4CDE]
-            text-white
-            shadow-2xl
-            flex flex-col justify-between
-            px-6 py-8
-            transform transition-transform duration-300 ease-in-out
-            ${
-              sidebarOpen
-                ? "translate-x-0"
-                : "-translate-x-full"
-            }
-            lg:translate-x-0
-          `}
+          className={`fixed top-0 left-0 z-50 h-screen w-80 bg-gradient-to-b from-[#041B4D] via-[#0A2E7A] to-[#0F4CDE] text-white shadow-2xl flex flex-col justify-between px-6 py-8 transform transition-transform duration-300 ease-in-out ${
+            sidebarOpen ? "translate-x-0" : "-translate-x-full"
+          } lg:translate-x-0`}
         >
           {/* ATAS */}
           <div className="flex flex-col gap-8">
-            {/* HEADER SIDEBAR */}
             <div className="relative">
-              {/* CLOSE MOBILE */}
               <button
                 onClick={closeSidebar}
-                className="
-                  absolute right-0 top-0
-                  lg:hidden
-                  p-2
-                  rounded-xl
-                  hover:bg-white/10
-                  transition
-                "
+                className="absolute right-0 top-0 lg:hidden p-2 rounded-xl hover:bg-white/10 transition"
               >
                 <X size={24} />
               </button>
-
-              {/* LOGO DESKTOP */}
               <div className="flex justify-center">
                 <img
-                  src={logo}
+                  src={Logo}
                   alt="Puma Logo"
-                  className="
-                    h-28
-                    xl:h-32
-                    w-auto
-                    object-contain
-                    drop-shadow-[0_0_25px_rgba(59,130,246,0.35)]
-                    transition-transform
-                    duration-300
-                    hover:scale-105
-                  "
+                  className="h-28 xl:h-32 w-auto object-contain drop-shadow-[0_0_25px_rgba(59,130,246,0.35)] transition-transform duration-300 hover:scale-105"
                 />
               </div>
             </div>
 
             {/* MENU */}
             <nav className="flex flex-col gap-3 mt-2">
-              <NavLink
-                to="/admin/dashboard"
-                end
-                className={navClass}
-                onClick={closeSidebar}
-              >
-                <LayoutDashboard size={22} />
-                Dashboard
+              <NavLink to="/admin/dashboard" end className={navClass} onClick={closeSidebar}>
+                <LayoutDashboard size={22} /> Dashboard
               </NavLink>
-
-              <NavLink
-                to="/admin/booking"
-                className={navClass}
-                onClick={closeSidebar}
-              >
-                <CalendarDays size={22} />
-                Booking Management
+              <NavLink to="/admin/booking" className={navClass} onClick={closeSidebar}>
+                <CalendarDays size={22} /> Booking Management
               </NavLink>
-
-              <NavLink
-                to="/admin/court"
-                className={navClass}
-                onClick={closeSidebar}
-              >
-                <GiShuttlecock size={22} />
-                Court Management
+              <NavLink to="/admin/court" className={navClass} onClick={closeSidebar}>
+                <GiShuttlecock size={22} /> Court Management
               </NavLink>
-
-              <NavLink
-                to="/admin/users"
-                className={navClass}
-                onClick={closeSidebar}
-              >
-                <Users size={22} />
-                User Management
+              <NavLink to="/admin/users" className={navClass} onClick={closeSidebar}>
+                <Users size={22} /> User Management
               </NavLink>
-
-              <NavLink
-                to="/admin/profile"
-                className={navClass}
-                onClick={closeSidebar}
-              >
-                <UserCircle size={22} />
-                Profile
+              <NavLink to="/admin/profile" className={navClass} onClick={closeSidebar}>
+                <UserCircle size={22} /> Profile
               </NavLink>
             </nav>
           </div>
@@ -194,23 +104,9 @@ export default function DashboardLayout() {
           <div className="pt-6 border-t border-white/10">
             <button
               onClick={handleLogout}
-              className="
-                w-full
-                flex items-center gap-4
-                px-5 py-4
-                rounded-2xl
-                text-red-300
-                border border-red-500/20
-                hover:bg-red-500/10
-                hover:text-white
-                hover:shadow-lg
-                hover:translate-y-[-2px]
-                active:scale-[0.98]
-                transition-all duration-300
-              "
+              className="w-full flex items-center gap-4 px-5 py-4 rounded-2xl text-red-300 border border-red-500/20 hover:bg-red-500/10 hover:text-white hover:shadow-lg hover:translate-y-[-2px] active:scale-[0.98] transition-all duration-300"
             >
-              <LogOut size={22} />
-              Logout
+              <LogOut size={22} /> Logout
             </button>
           </div>
         </aside>
@@ -218,15 +114,7 @@ export default function DashboardLayout() {
         {/* CONTENT */}
         <main className="flex-1 lg:ml-80">
           <div className="p-4 md:p-6 lg:p-8">
-            <div
-              className="
-                bg-white
-                rounded-[2rem]
-                shadow-sm
-                min-h-[calc(100vh-2rem)]
-                p-5 md:p-6 lg:p-8
-              "
-            >
+            <div className="bg-white rounded-[2rem] shadow-sm min-h-[calc(100vh-2rem)] p-5 md:p-6 lg:p-8">
               <Outlet />
             </div>
           </div>
