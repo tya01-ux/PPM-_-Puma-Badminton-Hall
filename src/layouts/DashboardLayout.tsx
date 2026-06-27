@@ -6,7 +6,6 @@ import {
   LayoutDashboard,
   CalendarDays,
   Users,
-  UserCircle,
   LogOut,
   Menu,
   X,

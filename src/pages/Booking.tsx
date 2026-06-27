@@ -41,7 +41,7 @@ const STEPS = [
 
 export default function BookingFlow() {
   const { user }                                      = useAuthStore();
-  const { createBooking, bookings, loading: bookingLoading } = useBookingStore();
+  const { createBooking, loading: bookingLoading } = useBookingStore();
 
   const [step, setStep]               = useState(1);
   const [bookingResult, setBookingResult] = useState<any>(null);

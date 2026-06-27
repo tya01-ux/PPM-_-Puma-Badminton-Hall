@@ -90,16 +90,21 @@ export default function StepPembayaran({ bookingData, bookingResult, onNext, onB
     setUploaded(false);
   };
 
-  const handleUpload = async () => {
-    if (!proofFile || !bookingResult?.id) return;
-    try {
-      await uploadProof(bookingResult.id, proofFile);
-      setUploaded(true);
-      setUploadError("");
-    } catch (err: any) {
-      setUploadError(err.message || "Gagal mengunggah bukti. Coba lagi.");
-    }
-  };
+const handleUpload = async () => {
+  if (!proofFile || !bookingResult?.id) return;
+
+  setUploadingProof(true);
+
+  try {
+    await uploadProof(bookingResult.id, proofFile);
+    setUploaded(true);
+    setUploadError("");
+  } catch (err: any) {
+    setUploadError(err.message || "Gagal mengunggah bukti. Coba lagi.");
+  } finally {
+    setUploadingProof(false);
+  }
+};
 
   const handleRemoveProof = () => {
     setProofFile(null);

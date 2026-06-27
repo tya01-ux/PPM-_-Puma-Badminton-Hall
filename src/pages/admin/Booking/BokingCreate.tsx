@@ -100,7 +100,6 @@ export default function BookingCreate({ onClose }: BookingCreateProps) {
     "w-full rounded-xl border border-slate-200 bg-slate-50/50 px-3.5 py-2.5 text-sm text-slate-700 outline-none focus:border-[#0050FF] focus:ring-2 focus:ring-blue-100 transition placeholder:text-slate-300";
 
   const selectedUser  = users.find((u) => u.id === Number(formData.userId));
-  const selectedChannel = channels.find((c) => c.id === Number(formData.channelId));
 
   return (
     <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">

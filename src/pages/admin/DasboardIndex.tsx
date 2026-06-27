@@ -21,7 +21,6 @@ import {
   PieChart,
   Pie,
   Cell,
-  Legend,
 } from "recharts";
 import { useBookingStore } from "../../store/useBookingStore";
 import { useReportStore } from "../../store/useReportStore";

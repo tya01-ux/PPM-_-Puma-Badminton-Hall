@@ -37,7 +37,7 @@ export default function UserProfile() {
             <thead className="bg-slate-50">
               <tr>
                 <th className="p-4 text-left">Lapangan</th>
-                <th className="p-4 text-left">Tanggal</th>
+                <th className="p-4 text-left">Kode Booking</th>
                 <th className="p-4 text-left">Status</th>
               </tr>
             </thead>
@@ -45,7 +45,7 @@ export default function UserProfile() {
               {myBookings.map((b) => (
                 <tr key={b.id}>
                   <td className="p-4">{b.court?.name}</td>
-                  <td className="p-4">{b.bookingDate}</td>
+                  <td className="p-4">{b.bookingCode}</td>
                   <td className="p-4 uppercase font-bold text-[10px]">{b.status}</td>
                 </tr>
               ))}
