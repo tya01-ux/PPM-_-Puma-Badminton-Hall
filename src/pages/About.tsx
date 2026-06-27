@@ -1,246 +1,212 @@
+import { motion } from "framer-motion";
+import kokk from "../assets/kokk.png";
 export default function About() {
   return (
-    <div className="bg-slate-50 text-slate-800 font-sans min-h-screen pt-20 overflow-x-hidden">
-      {/* 1. HERO ABOUT (Rata Kiri Sesuai Gambar) */}
+    <div className="bg-slate-50 text-slate-800 font-sans min-h-screen overflow-x-hidden">
+      
+      {/* 1. HERO ABOUT (SAMA PERSIS DENGAN KONSEP MEMBERSHIP - DEKORASI RAKET) */}
+      <div className="relative overflow-hidden bg-linear-to-r from-[#001845] to-[#1741B6] mt-14 md:mt-20">
+        
+        {/* Decoration - Sekarang menggunakan gambar raket */}
+        <img
+          src={kokk}
+          alt=""
+          className="
+            absolute right-0 top-1/2
+            -translate-y-1/2 translate-x-1/4
+            w-40 md:w-105
+            opacity-[0.05]
+            pointer-events-none
+            select-none
+            rotate-12
+          "
+        />
 
-      <section className="bg-[#0B2447] text-white pt-24 pb-20 md:pt-32 md:pb-24 px-6 md:px-16 border-b border-slate-200 relative overflow-hidden">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 relative z-10">
-          {/* Konten Teks (Rata Kiri) */}
+        {/* Content */}
+        <div className="relative max-w-7xl mx-auto px-4 md:px-6 py-8 md:py-14">
+          
+          {/* Accent */}
+          <div className="w-10 h-1 rounded-full bg-blue-300 mb-4" />
 
-          <div className="max-w-2xl text-left">
-            {/* Garis Dekorasi Kecil di Atas Judul */}
+          {/* Title */}
+          <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold leading-tight">
+            <span className="text-white">Tentang </span>
+            <span className="text-[#AFC8FF]">Puma Bharatangkas</span>
+          </h1>
 
-            <div className="w-10 h-1 bg-[#38bdf8] mb-4 rounded-full"></div>
+          {/* Desc */}
+          <p className="mt-3 text-blue-100 text-sm md:text-base leading-relaxed max-w-lg">
+            Pusat olahraga badminton modern yang dirancang untuk memberikan
+            pengalaman bermain terbaik, kenyamanan maksimal, dan kemudahan
+            akses bagi semua kalangan.
+          </p>
+        </div>
+      </div>
 
-            <h1 className="text-4xl md:text-5xl font-black tracking-tight leading-tight">
-              Tentang <span className="text-[#38bdf8]">Puma Bharatangkas</span>
-            </h1>
-
-            <p className="text-base md:text-lg text-slate-300 mt-4 leading-relaxed">
-              Pusat olahraga badminton modern yang dirancang untuk memberikan
-              pengalaman bermain terbaik, kenyamanan maksimal, dan kemudahan
-              akses bagi semua kalangan.
+      {/* MAIN CONTAINER */}
+      <div className="max-w-7xl mx-auto px-4 md:px-6 pt-10 md:pt-16 pb-14 md:pb-24">
+        
+        {/* 2. TENTANG PUMA */}
+        <section className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center mb-20 md:mb-28">
+          <motion.div 
+            initial={{ opacity: 0, x: -25 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="space-y-4"
+          >
+            <div className="w-12 h-1 bg-[#1741B6] rounded-full"></div>
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-950 tracking-tight">
+              Pusat Badminton Berkualitas & Modern
+            </h2>
+            <p className="text-slate-600 text-sm md:text-base leading-relaxed">
+              Puma Bharatangkas adalah pusat olahraga badminton yang menyediakan
+              lapangan berkualitas, fasilitas nyaman, dan sistem booking yang
+              mudah untuk mendukung aktivitas olahraga masyarakat.
             </p>
-          </div>
-
-          {/* Sisi Kanan: Dekorasi Transparan GOR / Shuttlecock (Opsional jika ingin diisi ikon bawaan) */}
-
-          <div className="hidden md:block opacity-10 pointer-events-none select-none">
-            <span className="text-9xl">🏸</span>
-          </div>
-        </div>
-      </section>
-
-      {/* 2. BARIS 1: TENTANG PUMA (Teks Kiri, Gambar Kanan) */}
-
-      <section className="py-16 md:py-24 px-4 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
-        <div className="order-1 md:order-1">
-          <div className="w-12 h-1 bg-[#19376D] mb-4"></div>
-
-          <h2 className="text-2xl md:text-3xl font-bold text-[#0B2447] mb-4">
-            Pusat Badminton Berkualitas
-          </h2>
-
-          <p className="text-slate-600 leading-relaxed mb-4">
-            Puma Bharatangkas adalah pusat olahraga badminton yang menyediakan
-            lapangan berkualitas, fasilitas nyaman, dan sistem booking yang
-            mudah untuk mendukung aktivitas olahraga masyarakat.
-          </p>
-
-          <p className="text-slate-600 leading-relaxed">
-            Kami hadir sebagai sarana bermain yang nyaman, aman, dan mudah
-            diakses oleh semua kalangan, mulai dari pemula hingga atlet
-            profesional. Dengan komitmen pelayanan yang tinggi, kami terus
-            berkembang menjadi pilihan utama.
-          </p>
-        </div>
-
-        <div className="order-2 md:order-2 bg-linear-to-br from-slate-200 to-slate-300 h-64 md:h-85 rounded-2xl shadow-inner flex items-center justify-center border border-slate-200 overflow-hidden relative">
-          <span className="text-slate-400 font-medium text-sm">
-            [ Foto Lapangan Utama ]
-          </span>
-        </div>
-      </section>
-
-      {/* 3. BARIS 2: VISI MISI (BLOK BACKGROUND PUTIH MINIMALIS) */}
-
-      <section className="bg-white py-20 md:py-24 px-4 border-t border-b border-slate-200/60">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          {/* Gambar/Visual di Kiri untuk Konsep Selang-Seling */}
-
-          <div className="order-2 md:order-1 bg-linear-to-br from-slate-100 to-slate-200 h-64 md:h-85 rounded-2xl shadow-xs flex items-center justify-center border border-slate-200 overflow-hidden">
-            <span className="text-slate-400 font-medium text-sm">
-              [ Ilustrasi / Foto Visi Misi ]
+            <p className="text-slate-600 text-sm md:text-base leading-relaxed">
+              Kami hadir sebagai sarana bermain yang nyaman, aman, dan mudah
+              diakses oleh semua kalangan, mulai dari pemula hingga atlet
+              profesional. Dengan komitmen pelayanan yang tinggi, kami terus
+              berkembang menjadi pilihan utama komunitas badminton.
+            </p>
+          </motion.div>
+          
+          <motion.div 
+            initial={{ opacity: 0, x: 25 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="bg-linear-to-br from-slate-200/70 to-slate-300/50 h-64 md:h-96 rounded-2xl flex items-center justify-center border border-slate-200/80 shadow-xs overflow-hidden relative group"
+          >
+            <span className="text-slate-400 font-medium text-sm group-hover:scale-105 transition-transform duration-300">
+              [ Foto Lapangan Utama ]
             </span>
-          </div>
+          </motion.div>
+        </section>
 
-          {/* Konten Teks Visi Misi di Kanan */}
-
-          <div className="order-1 md:order-2 space-y-6">
+        {/* 3. VISI MISI */}
+        <section className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-20 md:mb-28">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="bg-white p-6 md:p-8 rounded-2xl border border-slate-200/80 shadow-xs flex flex-col justify-between"
+          >
             <div>
-              <h3 className="text-xl font-bold text-[#0B2447] mb-2 flex items-center gap-2">
-                <span className="w-2 h-6 bg-[#19376D] rounded-full inline-block"></span>
+              <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-[#1741B6] font-bold text-lg mb-4">
+              
+              </div>
+              <h3 className="text-lg md:text-xl font-bold text-slate-950 mb-3">
                 Visi Kami
               </h3>
-
-              <p className="text-slate-600 leading-relaxed pl-4">
+              <p className="text-slate-600 text-sm md:text-base leading-relaxed">
                 Menjadi pusat olahraga badminton yang modern, nyaman, dan
-                terpercaya bagi seluruh lapisan masyarakat.
+                terpercaya bagi seluruh lapisan masyarakat serta melahirkan ekosistem olahraga yang sehat.
               </p>
             </div>
+          </motion.div>
 
-            <div>
-              <h3 className="text-xl font-bold text-[#0B2447] mb-2 flex items-center gap-2">
-                <span className="w-2 h-6 bg-[#008DDA] rounded-full inline-block"></span>
-                Misi Kami
-              </h3>
-
-              <ul className="space-y-2 text-slate-600 pl-4">
-                <li className="flex items-start gap-2">
-                  <span className="text-[#008DDA] font-bold">✓</span>{" "}
-                  Menyediakan infrastruktur lapangan berstandar prima.
-                </li>
-
-                <li className="flex items-start gap-2">
-                  <span className="text-[#008DDA] font-bold">✓</span> Memberikan
-                  pelayanan ramah dan responsif.
-                </li>
-
-                <li className="flex items-start gap-2">
-                  <span className="text-[#008DDA] font-bold">✓</span>{" "}
-                  Mempermudah akses dengan integrasi teknologi modern.
-                </li>
-              </ul>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="bg-white p-6 md:p-8 rounded-2xl border border-slate-200/80 shadow-xs"
+          >
+            <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-[#1741B6] font-bold text-lg mb-4">
+              🚀
             </div>
-          </div>
-        </div>
-      </section>
+            <h3 className="text-lg md:text-xl font-bold text-slate-950 mb-3">
+              Misi Kami
+            </h3>
+            <ul className="space-y-3 text-slate-600 text-sm md:text-base">
+              <li className="flex items-start gap-3">
+                <span className="text-[#1741B6] font-bold shrink-0">✓</span>{" "}
+                <span>Menyediakan infrastruktur lapangan berstandar prima dan karpet premium.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-[#1741B6] font-bold shrink-0">✓</span>{" "}
+                <span>Memberikan pelayanan yang ramah, responsif, dan mengutamakan kebersihan GOR.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-[#1741B6] font-bold shrink-0">✓</span>{" "}
+                <span>Mempermudah akses reservasi dengan integrasi sistem teknologi yang modern.</span>
+              </li>
+            </ul>
+          </motion.div>
+        </section>
 
-      {/* 4. BARIS 3: FASILITAS (Teks Kiri, Grid Kanan) */}
-
-      <section className="py-20 md:py-24 px-4 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 items-start">
-        {/* Kolom Teks Judul */}
-
-        <div className="md:col-span-1 md:sticky md:top-28">
-          <div className="w-12 h-1 bg-[#008DDA] mb-4"></div>
-
-          <h2 className="text-2xl md:text-3xl font-bold text-[#0B2447] mb-3">
-            Fasilitas Terbaik
-          </h2>
-
-          <p className="text-slate-500 text-sm md:text-base leading-relaxed">
-            Kami memastikan seluruh kenyamanan Anda terpenuhi secara maksimal
-            sebelum, selama, dan sesudah pertandingan selesai.
-          </p>
-        </div>
-
-        {/* Kolom Grid Items di Sebelah Kanan */}
-
-        <div className="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="bg-white p-5 rounded-xl border border-slate-200/80 shadow-xs">
-            <div className="text-2xl mb-2">🏸</div>
-
-            <h4 className="font-bold text-[#0B2447] text-sm mb-1">
-              Lapangan Premium
-            </h4>
-
-            <p className="text-xs text-slate-500">
-              Lantai karpet empuk, anti licin standar turnamen resmi.
+        {/* 4. FASILITAS */}
+        <section className="mb-20 md:mb-28">
+          <div className="text-center max-w-2xl mx-auto mb-10 md:mb-14">
+            <h2 className="text-xl sm:text-2xl md:text-4xl font-bold text-slate-950">
+              Fasilitas <span className="text-[#0050FF]">Terbaik</span> Untuk Anda
+            </h2>
+            <p className="text-slate-500 text-xs md:text-sm mt-2">
+              Kami memastikan seluruh kenyamanan Anda terpenuhi secara maksimal sebelum dan sesudah bertanding.
             </p>
           </div>
 
-          <div className="bg-white p-5 rounded-xl border border-slate-200/80 shadow-xs">
-            <div className="text-2xl mb-2">🚗</div>
-
-            <h4 className="font-bold text-[#0B2447] text-sm mb-1">
-              Parkir Luas & Aman
-            </h4>
-
-            <p className="text-xs text-slate-500">
-              Menampung puluhan kendaraan roda dua maupun roda empat.
-            </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {[
+              { icon: "🏸", title: "Lapangan Premium", desc: "Lantai karpet empuk, anti licin standar turnamen resmi." },
+              { icon: "🚗", title: "Parkir Luas & Aman", desc: "Menampung puluhan kendaraan roda dua maupun roda empat." },
+              { icon: "🚻", title: "Kamar Bilas Bersih", desc: "Fasilitas toilet yang higienis dan terawat sepanjang waktu." },
+              { icon: "💡", title: "Lighting Anti-Silau", desc: "Pencahayaan LED fokus merata tanpa mengganggu pandangan mata." }
+            ].map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.08 }}
+                whileHover={{ y: -4 }}
+                className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs hover:shadow-md transition-all duration-300"
+              >
+                <div className="text-2xl mb-3 bg-slate-50 w-10 h-10 rounded-xl flex items-center justify-center border border-slate-100">{item.icon}</div>
+                <h4 className="font-bold text-slate-900 text-sm mb-1">{item.title}</h4>
+                <p className="text-xs text-slate-500 leading-relaxed">{item.desc}</p>
+              </motion.div>
+            ))}
           </div>
+        </section>
 
-          <div className="bg-white p-5 rounded-xl border border-slate-200/80 shadow-xs">
-            <div className="text-2xl mb-2">🚻</div>
-
-            <h4 className="font-bold text-[#0B2447] text-sm mb-1">
-              Kamar Bilas Bersih
-            </h4>
-
-            <p className="text-xs text-slate-500">
-              Fasilitas toilet yang higienis dan terawat sepanjang waktu.
-            </p>
-          </div>
-
-          <div className="bg-white p-5 rounded-xl border border-slate-200/80 shadow-xs">
-            <div className="text-2xl mb-2">💡</div>
-
-            <h4 className="font-bold text-[#0B2447] text-sm mb-1">
-              Lighting Anti-Silau
-            </h4>
-
-            <p className="text-xs text-slate-500">
-              Pencahayaan LED fokus merata tanpa mengganggu pandangan mata.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* 5. BARIS 4: KENAPA MEMILIH KAMI (Blok Flat Navy) */}
-
-      <section className="bg-[#0B2447] text-white py-20 md:py-24 px-4 border-t border-slate-800">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          {/* Teks di Kiri */}
-
-          <div className="space-y-6">
+        {/* 5. KENAPA MEMILIH KAMI */}
+        <motion.section 
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="bg-linear-to-br from-[#001845] to-[#112D72] text-white p-6 md:p-12 rounded-3xl shadow-xl border border-[#1741B6]/30 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center"
+        >
+          <div className="lg:col-span-7 space-y-6">
             <div>
-              <h2 className="text-2xl md:text-3xl font-bold mb-3">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight">
                 Kenapa Harus Main di Puma Bharatangkas?
               </h2>
-
-              <p className="text-slate-300 text-sm md:text-base">
-                Kami mengutamakan konsistensi kualitas demi kenyamanan member
-                grup maupun pemain lepasan.
+              <p className="text-blue-200 text-xs md:text-sm mt-2">
+                Kami mengutamakan konsistensi kualitas demi kenyamanan main harian maupun rutin harian Anda.
               </p>
             </div>
-
-            <div className="space-y-3">
-              <div className="flex items-center gap-3 bg-[#19376D]/40 p-3.5 rounded-xl border border-slate-700/60">
-                <span className="text-emerald-400 font-bold">✓</span>
-
-                <span className="text-sm font-medium">
-                  Sistem Booking Real-Time & Praktis
-                </span>
-              </div>
-
-              <div className="flex items-center gap-3 bg-[#19376D]/40 p-3.5 rounded-xl border border-slate-700/60">
-                <span className="text-emerald-400 font-bold">✓</span>
-
-                <span className="text-sm font-medium">
-                  Tarif Sewa Kompetitif & Fleksibel
-                </span>
-              </div>
-
-              <div className="flex items-center gap-3 bg-[#19376D]/40 p-3.5 rounded-xl border border-slate-700/60">
-                <span className="text-emerald-400 font-bold">✓</span>
-
-                <span className="text-sm font-medium">
-                  Kondisi Lapangan Terjadwal Steril
-                </span>
-              </div>
+            
+            <div className="space-y-2.5">
+              {[
+                "Sistem Booking Real-Time & Praktis via Website",
+                "Tarif Sewa Kompetitif dengan Berbagai Pilihan Paket",
+                "Kondisi Lapangan Steril dan Jadwal yang On-Time"
+              ].map((text, idx) => (
+                <div key={idx} className="flex items-center gap-3 bg-white/5 px-4 py-3 rounded-xl border border-white/10 text-xs md:text-sm">
+                  <span className="text-emerald-400 font-bold">✓</span>
+                  <span className="text-slate-100 font-medium">{text}</span>
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* Gambar di Kanan */}
-
-          <div className="bg-[#19376D] h-64 md:h-80 rounded-2xl shadow-md flex items-center justify-center border border-slate-700 overflow-hidden">
-            <span className="text-slate-400 font-medium text-sm">
-              [ Foto Aktivitas / Member ]
-            </span>
+          <div className="lg:col-span-5 bg-white/5 h-48 lg:h-72 rounded-xl flex items-center justify-center border border-white/10 overflow-hidden">
+            <span className="text-white/30 font-medium text-xs">[ Foto Aktivitas Member ]</span>
           </div>
-        </div>
-      </section>
+        </motion.section>
+
+      </div>
     </div>
   );
 }

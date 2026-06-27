@@ -1,23 +1,25 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { useAuthStore } from "../store/useAuthStore";
 
-interface ProtectedRouteProps {
-  allowedRole?: string;
-}
+export default function ProtectedLayout() {
+  const token = localStorage.getItem("token");
+  const userString = localStorage.getItem("user");
+  const user = userString && userString !== "null" ? JSON.parse(userString) : null;
 
-export default function ProtectedRoute({ allowedRole }: ProtectedRouteProps) {
-  const user = useAuthStore((state) => state.user);
-
-  // 1. Cek udah login belum?
-  if (!user) {
-    return <Navigate to="/login" replace />;
+  // 1. Jika token tidak ada atau data user kosong, tendang ke /loginForm
+  if (!token || !user) {
+    return <Navigate to="/loginForm" replace />;
   }
 
-  // 2. Kalau ada role yang diminta, cek apakah role user cocok
-  if (allowedRole && user.role !== allowedRole) {
-    return <div className="p-10 text-center">Akses Ditolak! Kamu bukan {allowedRole}</div>;
+  // 2. Gunakan .toLowerCase() agar pengecekan role lebih aman dari salah huruf kapital
+  if (user.role?.toLowerCase() !== "admin") {
+    return <Navigate to="/loginForm" replace />;
   }
 
-  // 3. Kalau lolos, tampilkan halamannya
-  return <Outlet />;
+  return (
+    <>
+      {/* Sidebar */}
+      {/* Navbar */}
+      <Outlet />
+    </>
+  );
 }

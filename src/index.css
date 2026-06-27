@@ -15,16 +15,15 @@ html, body {
 body {
   font-family: "Poppins", sans-serif;
 }
-/* Scrollbar yang Recommended: Modern, Sporty, & Clean */
 ::-webkit-scrollbar {
-  width: 8px; /* Sedikit lebih tebal dari 6px agar lebih mudah diklik */
+  width: 8px; 
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1; /* Warna perak kebiruan yang sangat soft */
+  background: #cbd5e1;
   border-radius: 20px;
 
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #f1f5f9; /* Berubah jadi putih silver yang elegan saat di-hover */
+  background: #f1f5f9;
 }

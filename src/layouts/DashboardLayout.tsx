@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore";
+
 import {
   LayoutDashboard,
   CalendarDays,
@@ -9,6 +10,10 @@ import {
   LogOut,
   Menu,
   X,
+  CreditCard,
+  Tag,
+  Settings,
+  FileBarChart2,
 } from "lucide-react";
 import { GiShuttlecock } from "react-icons/gi";
 import Logo from "../assets/Logo.png";
@@ -37,7 +42,11 @@ export default function DashboardLayout() {
       {/* MOBILE HEADER */}
       <header className="lg:hidden sticky top-0 z-40 bg-[#041B4D] border-b border-blue-800 shadow-lg">
         <div className="flex items-center justify-between px-4 py-4">
-          <img src={Logo} alt="Puma Logo" className="h-20 w-auto object-contain transition-transform duration-300" />
+          <img
+            src={Logo}
+            alt="Puma Logo"
+            className="h-20 w-auto object-contain transition-transform duration-300"
+          />
           <button
             onClick={() => setSidebarOpen(true)}
             className="p-3 rounded-2xl text-white hover:bg-white/10 active:scale-95 transition-all duration-300"
@@ -82,41 +91,104 @@ export default function DashboardLayout() {
 
             {/* MENU */}
             <nav className="flex flex-col gap-3 mt-2">
-              <NavLink to="/admin/dashboard" end className={navClass} onClick={closeSidebar}>
+              <NavLink
+                to="/admin/dashboard"
+                end
+                className={navClass}
+                onClick={closeSidebar}
+              >
                 <LayoutDashboard size={22} /> Dashboard
               </NavLink>
-              <NavLink to="/admin/booking" className={navClass} onClick={closeSidebar}>
+
+              <NavLink
+                to="/admin/booking"
+                className={navClass}
+                onClick={closeSidebar}
+              >
                 <CalendarDays size={22} /> Booking Management
               </NavLink>
-              <NavLink to="/admin/court" className={navClass} onClick={closeSidebar}>
+
+              <NavLink
+                to="/admin/payment"
+                className={navClass}
+                onClick={closeSidebar}
+              >
+                <CreditCard size={22} /> Pembayaran
+              </NavLink>
+
+              <NavLink
+                to="/admin/payment-channel"
+                className={navClass}
+                onClick={closeSidebar}
+              >
+                <CreditCard size={22} /> Metode Pembayaran
+              </NavLink>
+
+              <NavLink
+                to="/admin/promo"
+                className={navClass}
+                onClick={closeSidebar}
+              >
+                <Tag size={22} /> Promo
+              </NavLink>
+
+              <NavLink
+                to="/admin/court"
+                className={navClass}
+                onClick={closeSidebar}
+              >
                 <GiShuttlecock size={22} /> Court Management
               </NavLink>
-              <NavLink to="/admin/users" className={navClass} onClick={closeSidebar}>
+
+              <NavLink
+                to="/admin/user"
+                className={navClass}
+                onClick={closeSidebar}
+              >
                 <Users size={22} /> User Management
               </NavLink>
-              <NavLink to="/admin/profile" className={navClass} onClick={closeSidebar}>
-                <UserCircle size={22} /> Profile
+
+              <NavLink
+                to="/admin/laporan"
+                className={navClass}
+                onClick={closeSidebar}
+              >
+                <FileBarChart2 size={22} /> Report
               </NavLink>
+
+              <NavLink
+                to="/admin/pengaturan"
+                className={navClass}
+                onClick={closeSidebar}
+              >
+                <Settings size={22} /> Pengaturan
+              </NavLink>
+
             </nav>
           </div>
-
           {/* LOGOUT */}
           <div className="pt-6 border-t border-white/10">
             <button
               onClick={handleLogout}
-              className="w-full flex items-center gap-4 px-5 py-4 rounded-2xl text-red-300 border border-red-500/20 hover:bg-red-500/10 hover:text-white hover:shadow-lg hover:translate-y-[-2px] active:scale-[0.98] transition-all duration-300"
+              className="w-full flex items-center gap-4 px-5 py-4 rounded-2xl
+               bg-white/10 border border-white/20
+               text-white
+               hover:bg-red-500 hover:border-red-400
+               hover:text-white
+               transition-all duration-300
+               hover:shadow-lg hover:shadow-red-400/30
+               active:scale-95"
             >
-              <LogOut size={22} /> Logout
+              <LogOut size={22} />
+              <span className="font-medium">Logout</span>
             </button>
           </div>
         </aside>
 
         {/* CONTENT */}
         <main className="flex-1 lg:ml-80">
-          <div className="p-4 md:p-6 lg:p-8">
-            <div className="bg-white rounded-[2rem] shadow-sm min-h-[calc(100vh-2rem)] p-5 md:p-6 lg:p-8">
-              <Outlet />
-            </div>
+          <div className="shadow-sm min-h-[calc(100vh-2rem)] p-5 md:p-6 lg:p-8">
+            <Outlet />
           </div>
         </main>
       </div>

@@ -3,6 +3,7 @@ import { create } from "zustand";
 interface User {
   id: number;
   name: string;
+  email: string;
   role: string;
 }
 
@@ -12,10 +13,26 @@ interface AuthState {
   logout: () => void;
 }
 
+const getInitialUser = (): User | null => {
+  try {
+    const userString = localStorage.getItem("user");
+    if (!userString || userString === "undefined" || userString === "null") return null;
+    return JSON.parse(userString);
+  } catch {
+    return null;
+  }
+};
+
 export const useAuthStore = create<AuthState>((set) => ({
-  user: null,
+  user: getInitialUser(),
 
-  login: (user) => set({ user }),
+  login: (user) => {
+    set({ user });
+  },
 
-  logout: () => set({ user: null }),
+  logout: () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    set({ user: null });
+  },
 }));

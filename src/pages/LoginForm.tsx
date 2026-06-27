@@ -5,14 +5,15 @@ import { InputPassword } from "../components/ui/InputPassword";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Button } from "../components/ui/Button";
-import { Link } from "react-router-dom";
-
-// Percobaan login
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore";
+import axios from "axios"; 
+
+// 💡 Ambil URL dari .env kamu, kalau kosong baru fallback ke localhost
+const API_URL = import.meta.env.VITE_URL_BACKEND || "http://localhost:3000";
 
 const schema = z.object({
-  username: z.string().min(4, { message: "Username minimal 4 karakter" }),
+  username: z.string().email({ message: "Format harus berupa email resmi" }), 
   password: z.string().min(4, { message: "Password minimal 4 karakter" }),
 });
 
@@ -23,7 +24,6 @@ interface FormData {
 
 export default function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
-
   const navigate = useNavigate();
   const login = useAuthStore((state) => state.login);
 
@@ -39,46 +39,47 @@ export default function LoginForm() {
     },
   });
 
-const onSubmit = async (data: FormData) => {
-  setIsLoading(true);
+  const onSubmit = async (data: FormData) => {
+    setIsLoading(true);
 
-  try {
-    // Simulasi pengecekan role
-    if (data.username === "admin") {
-      login({
-        id: 1,
-        name: "Administrator",
-        role: "admin",
+    try {
+      // 💡 PERBAIKAN: Sekarang menembak ke URL Railway asli (https://backendppm-...)
+      const response = await axios.post(`${API_URL}/auth/login`, {
+        email: data.username, 
+        password: data.password,
       });
 
-      // Redirect khusus admin
-      navigate("/admin/dashboard");
-    } else {
-      login({
-        id: 2,
-        name: data.username,
-        role: "user",
-      });
+      if (response.data && response.data.data) {
+        const { token, user } = response.data.data;
 
-      // Redirect untuk user biasa
-      navigate("/");
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(user));
+
+        login(user); 
+
+        alert("Login berhasil!");
+
+        if (user.role?.toLowerCase() === "admin") {
+          navigate("/admin/dashboard");
+        } else {
+          navigate("/");
+        }
+      } else {
+        alert("Gagal memproses data dari server.");
+      }
+    } catch (error: any) {
+      console.error("Login failed:", error);
+      alert(error.response?.data?.message || "Email atau password salah!");
+    } finally {
+      setIsLoading(false);
     }
-  } catch (error) {
-    console.error("Login failed:", error);
-  } finally {
-    setIsLoading(false);
-  }
-};
-
+  };
 
   return (
-<div className="flex items-center justify-center p-4 py-40">
-        <div className="relative w-full max-w-md">
-        
-        {/* KARTU BELAKANG (Layer kedua - warna biru muda agar kontras) */}
+    <div className="flex items-center justify-center p-4 py-40">
+      <div className="relative w-full max-w-md">
         <div className="absolute inset-0 translate-x-3 translate-y-3 bg-blue-100 rounded-3xl border border-blue-200 shadow-sm"></div>
 
-        {/* KARTU DEPAN (Layer utama - Form Login) */}
         <div className="relative w-full p-8 bg-white rounded-3xl shadow-2xl border border-slate-100">
           <div className="mb-8 text-center">
             <h2 className="text-3xl font-extrabold text-puma-dark">Selamat Datang</h2>
@@ -89,7 +90,7 @@ const onSubmit = async (data: FormData) => {
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
             <InputText
-              label="Username"
+              label="Email / Username"
               nama="username"
               register={register}
               error={errors.username?.message}

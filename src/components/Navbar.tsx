@@ -2,11 +2,13 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { useScrollNavbar } from "../hooks/useScrollNavbar";
+import { useAuthStore } from "../store/useAuthStore"; // 1. IMPORT STORE
 import Logo from "../assets/Logo.png";
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const scrolled = useScrollNavbar(50);
+  const { user } = useAuthStore(); 
 
   const menuItems = [
     { label: "Beranda", href: "/" },
@@ -38,7 +40,15 @@ export const Navbar = () => {
 
         {/* RIGHT SIDE DESKTOP */}
         <div className="hidden lg:flex items-center gap-6 pr-4">
-          <NavLink to="/loginForm" className="text-sm font-bold text-white hover:text-blue-200 transition-colors">Login</NavLink>
+          {/* 3. LOGIKA TOMBOL DINAMIS */}
+          {user ? (
+            <NavLink to="/profile" className="text-sm font-bold text-white hover:text-blue-200 transition-colors">
+              Halo, {user.name}
+            </NavLink>
+          ) : (
+            <NavLink to="/loginForm" className="text-sm font-bold text-white hover:text-blue-200 transition-colors">Login</NavLink>
+          )}
+          
           <NavLink to="/booking" className="px-6 py-2.5 rounded-xl bg-blue-500 hover:bg-blue-600 text-white text-sm font-bold transition-all shadow-lg shadow-blue-500/25">Booking Sekarang</NavLink>
         </div>
 
@@ -56,7 +66,12 @@ export const Navbar = () => {
               </NavLink>
             ))}
             <div className="h-px bg-white/10 my-2" />
-            <NavLink to="/loginForm" onClick={() => setIsOpen(false)} className={({ isActive }) => `block px-5 py-3 rounded-xl text-sm font-semibold transition-all duration-300 ${isActive ? "bg-white/10 text-white border-l-4 border-blue-400" : "text-white/60 hover:text-white hover:bg-white/10 hover:pl-8"}`}>Login</NavLink>
+            
+            {/* 4. LOGIKA MOBILE DINAMIS */}
+            <NavLink to={user ? "/profile" : "/loginForm"} onClick={() => setIsOpen(false)} className="block px-5 py-3 rounded-xl text-sm font-semibold text-white/60 hover:text-white hover:bg-white/10">
+              {user ? `Profil (${user.name})` : "Login"}
+            </NavLink>
+            
             <NavLink to="/booking" onClick={() => setIsOpen(false)} className="block px-5 py-3 rounded-xl bg-blue-500 text-center text-white text-sm font-bold shadow-lg shadow-blue-500/25 transition-all duration-300 hover:bg-blue-600 hover:scale-[1.02]">Booking Sekarang</NavLink>
           </nav>
         </div>

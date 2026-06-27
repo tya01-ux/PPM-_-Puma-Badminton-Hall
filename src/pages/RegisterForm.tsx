@@ -6,8 +6,11 @@ import { Button } from "../components/ui/Button";
 import { Link, useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import axios from "axios";
 
-// Schema dengan kalimat error yang lebih ringkas dan natural
+// Ambil URL dari .env sesuai konfigurasi Railway kamu
+const API_URL = import.meta.env.VITE_URL_BACKEND || "http://localhost:3000";
+
 const schema = z.object({
   nama: z.string().min(1, "Nama wajib diisi"),
   email: z.string().email({ message: "Format email salah" }),
@@ -26,24 +29,41 @@ export default function RegisterForm() {
 
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
     resolver: zodResolver(schema),
+    defaultValues: {
+      nama: "",
+      email: "",
+      password: "",
+      passwordConfirm: "",
+    }
   });
 
-  const onSubmit = async () => {
+  const onSubmit = async (data: FormData) => {
     setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      alert("Registrasi Berhasil!");
+
+    try {
+      // Menembak endpoint registrasi ke backend Railway
+      await axios.post(`${API_URL}/auth/register`, {
+        name: data.nama,
+        email: data.email,
+        password: data.password,
+        role: "user" // Default role untuk pendaftaran publik mandiri
+      });
+
+      alert("Registrasi Berhasil! Silakan masuk menggunakan akun baru Anda.");
       navigate("/loginForm");
-    }, 1500);
+    } catch (error: any) {
+      console.error("Registration failed:", error);
+      alert(error.response?.data?.message || "Terjadi kesalahan saat mendaftar akun baru.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
-    // pb-20 agar form tidak tertutup keyboard HP
     <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-slate-100 to-blue-100 p-4 pb-20">
-      
       <div className="relative w-full max-w-sm sm:max-w-md">
         
-        {/* KARTU BELAKANG - Sembunyikan di layar kecil untuk estetika mobile */}
+        {/* KARTU BELAKANG */}
         <div className="hidden sm:block absolute inset-0 translate-x-4 translate-y-4 bg-blue-100 rounded-3xl border border-blue-200"></div>
 
         {/* KARTU DEPAN */}
