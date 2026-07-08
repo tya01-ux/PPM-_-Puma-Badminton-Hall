@@ -47,7 +47,7 @@ interface BookingStore {
     endAt: string;
     courtId: number;
     notes?: string;
-  }) => Promise<void>;
+  }) => Promise<Booking>;
   updateBooking: (id: number, data: {
     courtId?: number;
     startAt?: string;
@@ -81,8 +81,10 @@ export const useBookingStore = create<BookingStore>((set, get) => ({
   createBooking: async (data) => {
     set({ loading: true });
     try {
-      await axios.post(`${BASE_URL}/bookings`, data, getAuthHeaders());
+      const res = await axios.post(`${BASE_URL}/bookings`, data, getAuthHeaders());
+      const created: Booking = res.data?.data ?? res.data;
       await get().fetchBookings();
+      return created;
     } catch (err: any) {
       throw new Error(err.response?.data?.message || "Gagal membuat booking");
     } finally {
