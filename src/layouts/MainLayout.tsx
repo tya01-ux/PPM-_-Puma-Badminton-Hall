@@ -9,8 +9,7 @@ export default function MainLayout() {
         <div className="min-h-screen flex flex-col">
             <Navbar />
 
-            {/* Tambahkan 'py-10' untuk memberi ruang napas yang pas */}
-            <main className="grow w-full bg-linear-to-br from-slate-100 to-blue-50 flex flex-col justify-center py-8">
+            <main className="grow w-full flex flex-col">
                   <Outlet />
             </main>
 

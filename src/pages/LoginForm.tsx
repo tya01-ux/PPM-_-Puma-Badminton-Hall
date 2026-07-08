@@ -9,7 +9,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore";
 import axios from "axios"; 
 
-// 💡 Ambil URL dari .env kamu, kalau kosong baru fallback ke localhost
 const API_URL = import.meta.env.VITE_URL_BACKEND || "http://localhost:3000";
 
 const schema = z.object({
@@ -43,7 +42,6 @@ export default function LoginForm() {
     setIsLoading(true);
 
     try {
-      // 💡 PERBAIKAN: Sekarang menembak ke URL Railway asli (https://backendppm-...)
       const response = await axios.post(`${API_URL}/auth/login`, {
         email: data.username, 
         password: data.password,
@@ -90,7 +88,7 @@ export default function LoginForm() {
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
             <InputText
-              label="Email / Username"
+              label="Email"
               nama="username"
               register={register}
               error={errors.username?.message}

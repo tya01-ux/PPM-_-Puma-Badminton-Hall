@@ -69,7 +69,7 @@ export default function CourtIndex() {
             <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 stroke-[2.5]" />
             <input
               type="text"
-              placeholder="Cari user..." // Menyamakan placeholder input pencarian sesuai mockup referensi
+              placeholder="Cari user..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full rounded-xl border border-slate-200 bg-slate-50/50 py-2.5 pl-12 pr-4 text-sm font-medium text-slate-800 outline-none transition focus:border-blue-500 placeholder:text-slate-400"
@@ -111,7 +111,7 @@ export default function CourtIndex() {
               </thead>
               <tbody className="divide-y divide-slate-50 text-sm font-medium text-slate-700">
                 {filteredCourts.map((court, index) => {
-                  // Penentuan warna lapangan mini berbasis CSS sesuai logic bawaanmu
+                  // Penentuan warna lapangan mini berbasis CSS sesuai logic bawaanmu (fallback kalau tidak ada gambar)
                   let courtColor = "blue";
                   if (court.name.toLowerCase().includes("5") || court.name.toLowerCase().includes("6") || court.name.toLowerCase().includes("7")) {
                     courtColor = "green";
@@ -128,10 +128,23 @@ export default function CourtIndex() {
                       {/* Kolom Nama Court + Miniatur Lapangan */}
                       <td className="py-4 px-6 font-bold text-slate-900">
                         <div className="flex items-center gap-4">
-                          {/* Miniatur Lapangan Mini Sesuai Gambar Mockup */}
+                          {/* Miniatur Lapangan — pakai foto asli kalau ada, fallback gradient kalau kosong/rusak */}
                           <div className="w-14 h-9 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center p-0.5 overflow-hidden shrink-0">
-                            <div 
-                              className={`w-full h-full rounded relative border border-white/60 shadow-inner flex items-center justify-center
+                            {court.image ? (
+                              <img
+                                src={court.image}
+                                alt={court.name}
+                                className="w-full h-full object-cover rounded"
+                                onError={(e) => {
+                                  (e.target as HTMLImageElement).style.display = "none";
+                                  const fallback = (e.target as HTMLImageElement).nextElementSibling as HTMLElement;
+                                  if (fallback) fallback.style.display = "flex";
+                                }}
+                              />
+                            ) : null}
+                            <div
+                              className={`w-full h-full rounded relative border border-white/60 shadow-inner items-center justify-center
+                                ${court.image ? "hidden" : "flex"}
                                 ${courtColor === "blue" ? "bg-gradient-to-b from-blue-600 to-blue-700" : ""}
                                 ${courtColor === "green" ? "bg-gradient-to-b from-emerald-600 to-emerald-700" : ""}
                                 ${courtColor === "slate" ? "bg-gradient-to-b from-slate-500 to-slate-600" : ""}

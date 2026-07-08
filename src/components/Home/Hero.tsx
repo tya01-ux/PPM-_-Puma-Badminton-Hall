@@ -2,7 +2,7 @@ import { Calendar, MapPin, Clock, Trophy, Target } from "lucide-react";
 
 export const Hero = () => {
   return (
-    <section className="relative w-full overflow-hidden">
+    <section className="relative w-full overflow-hidden bg-white">
       {/* 1. Background Hero */}
       <div 
         className="relative w-full min-h-[85vh] flex flex-col justify-center text-white pt-32 md:pt-40 pb-32" 
@@ -46,7 +46,8 @@ export const Hero = () => {
       </div>
 
       {/* 2. Info Bar (Overlap) */}
-      <div className="relative z-10 w-full px-4 -mt-20 md:-mt-24 pb-16">
+      {/* bg-white ditambahkan biar area overlap ini konsisten putih, ga nembus ke warna default body */}
+      <div className="relative z-10 w-full px-4 -mt-20 md:-mt-24 pb-16 bg-white">
         <div className="max-w-7xl mx-auto bg-[#041B4D]/90 backdrop-blur-md py-6 px-4 md:py-8 md:px-8 rounded-2xl shadow-2xl 
           grid grid-cols-1 md:grid-cols-4 gap-4 border border-blue-500/20 
           divide-y md:divide-y-0 md:divide-x divide-blue-800/50">

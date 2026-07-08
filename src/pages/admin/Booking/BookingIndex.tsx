@@ -12,7 +12,6 @@ import BookingCreate from "./BokingCreate";
 import EditBookingModal from "./Editbookingmodal";
 import CetakInvoice from "./Cetakinvoice";
 
-// ─── Helpers ───────────────────────────────────────────────────────────────
 
 const BASE_URL = import.meta.env.VITE_URL_BACKEND || "http://localhost:3000";
 
@@ -45,7 +44,6 @@ const StatusBadge = ({ status }: { status: Booking["status"] }) => {
   );
 };
 
-// ─── Badge Status Payment ──────────────────────────────────────────────────
 
 const PaymentBadge = ({ status }: { status?: string }) => {
   if (!status) return <span className="text-xs text-slate-300">—</span>;
@@ -65,7 +63,6 @@ const PaymentBadge = ({ status }: { status?: string }) => {
   );
 };
 
-// ─── Stat Card ─────────────────────────────────────────────────────────────
 
 function StatCard({ label, value, sub, color }: { label: string; value: number; sub: string; color: string }) {
   const colors: Record<string, { bg: string; text: string; icon: string }> = {
@@ -89,7 +86,6 @@ function StatCard({ label, value, sub, color }: { label: string; value: number; 
   );
 }
 
-// ─── Sub komponen Detail Panel ─────────────────────────────────────────────
 
 function Section({ icon, title, children }: { icon: React.ReactNode; title: string; children: React.ReactNode }) {
   return (
@@ -112,7 +108,6 @@ function Row({ label, value, icon }: { label: string; value: React.ReactNode; ic
   );
 }
 
-// ─── Booking Row (baris tabel) ─────────────────────────────────────────────
 
 function BookingRow({ b, i, selected, onSelect, onApprove, onReject, onCancel, processing }: {
   b: any; i: number; selected: boolean; processing: boolean;

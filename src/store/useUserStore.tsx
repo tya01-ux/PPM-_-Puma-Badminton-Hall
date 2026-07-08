@@ -21,9 +21,9 @@ interface UserState {
   addUser: (data: Omit<UserData, "id" | "createdAt" | "updatedAt"> & { password?: string }) => Promise<void>;
   updateUser: (id: number, data: Partial<Omit<UserData, "id">>) => Promise<void>;
   deleteUser: (id: number) => Promise<void>;
+  updateOwnProfile: (data: { name?: string; email?: string; phone?: string }) => Promise<UserData>;
 }
 
-// 💡 PERBAIKAN UTAMA: Mengambil token langsung dari key "token" sesuai dengan LoginForm
 const getAuthToken = (): string | null => {
   try {
     const token = localStorage.getItem("token");
@@ -51,7 +51,6 @@ export const useUserStore = create<UserState>((set) => ({
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      // Menyesuaikan pembungkus .data.data milik database backend Railway kamu
       const fetchedData = response.data?.data ?? response.data;
       set({ users: Array.isArray(fetchedData) ? fetchedData : [], loading: false });
     } catch (err: any) {
@@ -131,6 +130,28 @@ export const useUserStore = create<UserState>((set) => ({
       set({ 
         error: err.response?.data?.message || err.message || "Gagal menghapus user", 
         loading: false 
+      });
+      throw err;
+    }
+  },
+
+  updateOwnProfile: async (data) => {
+    set({ loading: true, error: null });
+    try {
+      const token = getAuthToken();
+      if (!token) throw new Error("Token tidak ditemukan. Silakan login kembali.");
+
+      const response = await axios.put(`${API_URL}/users/me`, data, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      const updatedUser = response.data?.data ?? response.data;
+      set({ loading: false });
+      return updatedUser;
+    } catch (err: any) {
+      set({
+        error: err.response?.data?.message || err.message || "Gagal memperbarui profil",
+        loading: false,
       });
       throw err;
     }

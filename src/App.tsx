@@ -7,6 +7,9 @@ import LoginForm from './pages/LoginForm';
 import RegisterForm from './pages/RegisterForm';
 import MainLayout from './layouts/MainLayout';
 import ProtectedRoute from './routes/ProtectedRoute';
+import MembershipRegistrationForm from "./pages/MembershipRegistrationFrom";
+import UserProfile from "./pages/user/UserProfil"; // ← tambah import ini
+
 
 // Admin Layout
 import DashboardLayout from './layouts/DashboardLayout';
@@ -21,12 +24,9 @@ import UserEdit from './pages/admin/User/UserEdit';
 import PaymentIndex from './pages/admin/Payment/PaymentIndex';
 import PaymentChannelIndex from './pages/admin/Payment/PaymentChannelIndex';
 import PromoIndex from './pages/admin/Promo/PromoIndex';
-
-// Modul yang belum dibangun (placeholder sementara, gantian nanti)
-// import MembershipIndex from './pages/admin/Membership/MembershipIndex';
-// import JadwalIndex from './pages/admin/Jadwal/JadwalIndex';
 import LaporanIndex from './pages/admin/Laporan/LaporanIndex';
 import PengaturanIndex from './pages/admin/Pengaturan/PengaturanIndex';
+import MemberIndex from './pages/admin/Member/MemberIndex';
 
 function App() {
   return (
@@ -38,7 +38,9 @@ function App() {
           <Route path="/membership" element={<Membership />} />
           <Route path="/booking" element={<Booking />} />
           <Route path="/about" element={<About />} />
+          <Route path="/membership/register/:id" element={<MembershipRegistrationForm />} />
           <Route path="/loginForm" element={<LoginForm />} />
+          <Route path="/profile" element={<UserProfile />} /> {/* ← tambah route ini */}
         </Route>
 
         <Route path="/registerForm" element={<RegisterForm />} />
@@ -61,9 +63,7 @@ function App() {
             <Route path="/admin/user/create" element={<UserCreate />} />
             <Route path="/admin/user/edit/:id" element={<UserEdit />} />
 
-            {/* belum dibangun — nanti ganti import di atas kalau sudah ada */}
-            {/* <Route path="/admin/membership" element={<MembershipIndex />} /> */}
-            {/* <Route path="/admin/jadwal" element={<JadwalIndex />} /> */}
+            <Route path="/admin/member" element={<MemberIndex />} />
             <Route path="/admin/laporan" element={<LaporanIndex />} />
             <Route path="/admin/pengaturan" element={<PengaturanIndex />} />
           </Route>

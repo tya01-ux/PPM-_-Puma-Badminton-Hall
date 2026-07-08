@@ -13,7 +13,9 @@ import {
   Tag,
   Settings,
   FileBarChart2,
+  Crown,
 } from "lucide-react";
+
 import { GiShuttlecock } from "react-icons/gi";
 import Logo from "../assets/Logo.png";
 
@@ -89,80 +91,136 @@ export default function DashboardLayout() {
             </div>
 
             {/* MENU */}
-            <nav className="flex flex-col gap-3 mt-2">
-              <NavLink
-                to="/admin/dashboard"
-                end
-                className={navClass}
-                onClick={closeSidebar}
-              >
-                <LayoutDashboard size={22} /> Dashboard
-              </NavLink>
+            <nav className="flex flex-col gap-6 mt-2">
+              {/* DASHBOARD */}
+              <div>
+                <p className="px-2 mb-2 text-xs font-semibold uppercase tracking-wider text-blue-200/70">
+                  Dashboard
+                </p>
 
-              <NavLink
-                to="/admin/booking"
-                className={navClass}
-                onClick={closeSidebar}
-              >
-                <CalendarDays size={22} /> Booking Management
-              </NavLink>
+                <NavLink
+                  to="/admin/dashboard"
+                  end
+                  className={navClass}
+                  onClick={closeSidebar}
+                >
+                  <LayoutDashboard size={22} />
+                  Dashboard
+                </NavLink>
+              </div>
 
-              <NavLink
-                to="/admin/payment"
-                className={navClass}
-                onClick={closeSidebar}
-              >
-                <CreditCard size={22} /> Pembayaran
-              </NavLink>
+              {/* OPERASIONAL */}
+              <div>
+                <p className="px-2 mb-2 text-xs font-semibold uppercase tracking-wider text-blue-200/70">
+                  Operasional
+                </p>
 
-              <NavLink
-                to="/admin/payment-channel"
-                className={navClass}
-                onClick={closeSidebar}
-              >
-                <CreditCard size={22} /> Metode Pembayaran
-              </NavLink>
+                <div className="flex flex-col gap-2">
+                  <NavLink
+                    to="/admin/booking"
+                    className={navClass}
+                    onClick={closeSidebar}
+                  >
+                    <CalendarDays size={22} />
+                    Booking Management
+                  </NavLink>
 
-              <NavLink
-                to="/admin/promo"
-                className={navClass}
-                onClick={closeSidebar}
-              >
-                <Tag size={22} /> Promo
-              </NavLink>
+                  <NavLink
+                    to="/admin/payment"
+                    className={navClass}
+                    onClick={closeSidebar}
+                  >
+                    <CreditCard size={22} />
+                    Pembayaran
+                  </NavLink>
 
-              <NavLink
-                to="/admin/court"
-                className={navClass}
-                onClick={closeSidebar}
-              >
-                <GiShuttlecock size={22} /> Court Management
-              </NavLink>
+                  <NavLink
+                    to="/admin/member"
+                    className={navClass}
+                    onClick={closeSidebar}
+                  >
+                    <Crown size={22} />
+                    Member Management
+                  </NavLink>
 
-              <NavLink
-                to="/admin/user"
-                className={navClass}
-                onClick={closeSidebar}
-              >
-                <Users size={22} /> User Management
-              </NavLink>
+                  <NavLink
+                    to="/admin/user"
+                    className={navClass}
+                    onClick={closeSidebar}
+                  >
+                    <Users size={22} />
+                    User Management
+                  </NavLink>
+                </div>
+              </div>
 
-              <NavLink
-                to="/admin/laporan"
-                className={navClass}
-                onClick={closeSidebar}
-              >
-                <FileBarChart2 size={22} /> Report
-              </NavLink>
+              {/* MASTER DATA */}
+              <div>
+                <p className="px-2 mb-2 text-xs font-semibold uppercase tracking-wider text-blue-200/70">
+                  Master Data
+                </p>
 
-              <NavLink
-                to="/admin/pengaturan"
-                className={navClass}
-                onClick={closeSidebar}
-              >
-                <Settings size={22} /> Pengaturan
-              </NavLink>
+                <div className="flex flex-col gap-2">
+                  <NavLink
+                    to="/admin/court"
+                    className={navClass}
+                    onClick={closeSidebar}
+                  >
+                    <GiShuttlecock size={22} />
+                    Court Management
+                  </NavLink>
 
+                  <NavLink
+                    to="/admin/payment-channel"
+                    className={navClass}
+                    onClick={closeSidebar}
+                  >
+                    <CreditCard size={22} />
+                    Metode Pembayaran
+                  </NavLink>
+
+                  <NavLink
+                    to="/admin/promo"
+                    className={navClass}
+                    onClick={closeSidebar}
+                  >
+                    <Tag size={22} />
+                    Promo
+                  </NavLink>
+                </div>
+              </div>
+
+              {/* ANALYTICS */}
+              <div>
+                <p className="px-2 mb-2 text-xs font-semibold uppercase tracking-wider text-blue-200/70">
+                  Analytics
+                </p>
+
+                <NavLink
+                  to="/admin/laporan"
+                  className={navClass}
+                  onClick={closeSidebar}
+                >
+                  <FileBarChart2 size={22} />
+                  Report
+                </NavLink>
+              </div>
+
+              {/* SYSTEM */}
+              <div>
+                <p className="px-2 mb-2 text-xs font-semibold uppercase tracking-wider text-blue-200/70">
+                  System
+                </p>
+
+                <NavLink
+                  to="/admin/pengaturan"
+                  className={navClass}
+                  onClick={closeSidebar}
+                >
+                  <Settings size={22} />
+                  Pengaturan
+                </NavLink>
+              </div>
             </nav>
           </div>
           {/* LOGOUT */}

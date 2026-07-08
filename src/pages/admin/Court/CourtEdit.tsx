@@ -1,22 +1,24 @@
 import { useState, useEffect } from "react";
 import type { Dispatch, SetStateAction } from "react";
-import { useCourtStore } from "../../../store/useCourtBoking"; 
+import { useCourtStore } from "../../../store/useCourtBoking";
 import type { Court } from "../../../store/useCourtBoking";
-import { X, Layers, DollarSign, AlignLeft, Activity, Info } from "lucide-react";
+import { X, Layers, DollarSign, AlignLeft, Activity, Info, ImageIcon } from "lucide-react";
 
 interface CourtEditProps {
   setIsOpen: Dispatch<SetStateAction<boolean>> | ((v: boolean) => void);
-  court: Court; 
+  court: Court;
 }
 
 export default function CourtEdit({ setIsOpen, court }: CourtEditProps) {
   const updateCourt = useCourtStore((state) => state.updateCourt);
+  const [loading, setLoading] = useState(false);
 
   const [name, setName] = useState(court.name);
   const [type, setType] = useState(court.type);
   const [price, setPrice] = useState(court.price.toString());
   const [isActive, setIsActive] = useState<boolean>(court.isActive);
   const [description, setDescription] = useState(court.description || "");
+  const [image, setImage] = useState(court.image || "");
 
   useEffect(() => {
     if (court) {
@@ -25,22 +27,28 @@ export default function CourtEdit({ setIsOpen, court }: CourtEditProps) {
       setPrice(court.price.toString());
       setIsActive(court.isActive);
       setDescription(court.description || "");
+      setImage(court.image || "");
     }
   }, [court]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    await updateCourt(court.id, {
-      name,
-      type,
-      price: Number(price),
-      isActive,
-      description,
-      image: court.image || "" 
-    });
-
-    setIsOpen(false);
+    setLoading(true);
+    try {
+      await updateCourt(court.id, {
+        name,
+        type,
+        price: Number(price),
+        isActive,
+        description,
+        image,
+      });
+      setIsOpen(false);
+    } catch (error: any) {
+      alert(error.message || "Gagal mengupdate lapangan.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -128,6 +136,29 @@ export default function CourtEdit({ setIsOpen, court }: CourtEditProps) {
 
           <div>
             <label className="flex items-center gap-1.5 text-[11px] font-black uppercase tracking-wider text-slate-400 mb-1.5">
+              <ImageIcon size={12} className="text-slate-400" /> URL Gambar Lapangan <span className="text-slate-300 normal-case font-medium">(opsional)</span>
+            </label>
+            <input
+              type="text"
+              placeholder="https://example.com/gambar-lapangan.jpg"
+              value={image}
+              onChange={(e) => setImage(e.target.value)}
+              className="w-full rounded-xl border border-slate-200 bg-white py-2.5 px-3.5 text-sm font-medium text-slate-700 outline-none transition placeholder:text-slate-300 focus:border-slate-400 focus:ring-4 focus:ring-slate-50"
+            />
+            {image && (
+              <div className="mt-2 w-full h-28 rounded-xl overflow-hidden border border-slate-200 bg-slate-50">
+                <img
+                  src={image}
+                  alt="Preview"
+                  className="w-full h-full object-cover"
+                  onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                />
+              </div>
+            )}
+          </div>
+
+          <div>
+            <label className="flex items-center gap-1.5 text-[11px] font-black uppercase tracking-wider text-slate-400 mb-1.5">
               <AlignLeft size={12} className="text-slate-400" /> Deskripsi / Fasilitas
             </label>
             <textarea
@@ -149,9 +180,10 @@ export default function CourtEdit({ setIsOpen, court }: CourtEditProps) {
             </button>
             <button
               type="submit"
-              className="flex-1 rounded-xl bg-slate-900 hover:bg-slate-800 text-white py-2.5 text-xs font-bold transition-all shadow-sm shadow-slate-900/10"
+              disabled={loading}
+              className="flex-1 rounded-xl bg-slate-900 hover:bg-slate-800 disabled:bg-slate-400 text-white py-2.5 text-xs font-bold transition-all shadow-sm shadow-slate-900/10"
             >
-              Simpan Perubahan
+              {loading ? "Menyimpan..." : "Simpan Perubahan"}
             </button>
           </div>
         </form>

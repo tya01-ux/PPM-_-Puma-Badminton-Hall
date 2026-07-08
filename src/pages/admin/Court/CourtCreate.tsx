@@ -1,200 +1,178 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Untuk redirect setelah sukses
-import { UserPlus, ArrowLeft, Mail, Phone, User, Lock } from "lucide-react";
-import { useUserStore } from "../../../store/useUserStore";
+import type { Dispatch, SetStateAction } from "react";
+import { useCourtStore } from "../../../store/useCourtBoking";
+import { X, Layers, DollarSign, AlignLeft, Activity, Info, ImageIcon } from "lucide-react";
 
-export default function UserCreate() {
-  const navigate = useNavigate();
-  const { addUser, loading } = useUserStore();
+interface CourtCreateProps {
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
+}
 
-  // State untuk form input data user baru (Termasuk Password)
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    role: "User",
-    password: "", // Sekarang wajib diisi lewat form
-  });
+export default function CourtCreate({ setIsOpen }: CourtCreateProps) {
+  const addCourt = useCourtStore((state) => state.addCourt);
+  const [loading, setLoading] = useState(false);
 
-  // Handler Submit Form ke store Zustand
+  const [name, setName] = useState("");
+  const [type, setType] = useState("");
+  const [price, setPrice] = useState("");
+  const [isActive, setIsActive] = useState(true);
+  const [description, setDescription] = useState("");
+  const [image, setImage] = useState("");
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.password) {
-      alert("Password wajib diisi!");
-      return;
-    }
-    
+    setLoading(true);
     try {
-      await addUser(formData);
-      alert("Pengguna baru berhasil dibuat dan disimpan ke database!");
-      navigate("/admin/user"); // Kembali ke rute list utama yang benar
+      await addCourt({
+        name,
+        type,
+        price: Number(price),
+        isActive,
+        description,
+        image,
+      });
+      setIsOpen(false);
     } catch (error: any) {
-      console.error("Gagal membuat user baru:", error);
-      alert(error.response?.data?.message || "Terjadi kesalahan sistem saat menyimpan data.");
+      alert(error.message || "Gagal menambahkan lapangan.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    /* LAYER 1: Wrapper dasar melengkung [2.5rem] pudar */
-    <div className="w-full bg-slate-50/50 border border-slate-200/60 p-4 md:p-6 rounded-[2.5rem]">
-      
-      {/* LAYER 2: Boks konten utama putih solid melengkung mewah */}
-      <div className="w-full max-w-2xl mx-auto bg-white border border-slate-200/90 p-6 md:p-8 rounded-[2.2rem] shadow-[0_8px_30px_rgba(0,0,0,0.03)]">
-        
-        {/* HEADER FORM & BUTTON KEMBALI */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8 border-b border-slate-100 pb-5">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-slate-950 flex items-center justify-center text-white shadow-md">
-              <UserPlus size={22} className="stroke-[2.5]" />
-            </div>
-            <div>
-              <h1 className="text-xl font-black text-slate-900 tracking-tight md:text-2xl">Tambah User Baru</h1>
-              <p className="text-xs font-medium text-slate-500 mt-0.5">Daftarkan akun hak akses baru ke dalam ekosistem aplikasi.</p>
-            </div>
-          </div>
+    <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-md flex items-center justify-center z-50 p-4 animate-fade-in">
+      <div className="bg-white w-full max-w-md p-6 md:p-7 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.12)] border border-slate-100 relative max-h-[90vh] overflow-y-auto custom-scrollbar">
+        <button
+          type="button"
+          onClick={() => setIsOpen(false)}
+          className="absolute right-5 top-5 p-1.5 rounded-xl bg-slate-50 text-slate-400 hover:text-slate-600 border border-slate-100 transition-colors"
+        >
+          <X size={16} />
+        </button>
 
-          <button
-            type="button"
-            onClick={() => navigate(-1)} 
-            className="self-start sm:self-auto rounded-xl border border-slate-200 px-4 py-2.5 text-xs font-bold text-slate-600 hover:bg-slate-50 transition flex items-center gap-1.5"
-          >
-            <ArrowLeft size={14} className="stroke-[2.5]" />
-            Kembali
-          </button>
+        <div className="mb-6 pr-8">
+          <h2 className="text-xl font-black text-slate-800 tracking-tight">Tambah Lapangan Baru</h2>
+          <p className="text-xs text-slate-400 font-medium mt-1">Lengkapi rincian informasi, harga sewa, dan status operasional lapangan.</p>
         </div>
 
-        {/* ALUR PENGISIAN FORM */}
-        <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-          
-          {/* INPUT NAMA */}
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-extrabold uppercase tracking-wider text-slate-500 mb-1.5">Nama Lengkap</label>
-            <div className="relative">
-              <User size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-              <input
-                type="text"
-                required
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="w-full rounded-xl border border-slate-300 bg-white py-2.5 pl-11 pr-4 text-sm font-medium text-slate-800 outline-none transition focus:border-slate-500 placeholder:text-slate-400"
-                placeholder="Masukkan nama lengkap user..."
-              />
-            </div>
+            <label className="flex items-center gap-1.5 text-[11px] font-black uppercase tracking-wider text-slate-400 mb-1.5">
+              <Layers size={12} className="text-slate-400" /> Nama Lapangan
+            </label>
+            <input
+              type="text"
+              placeholder="Contoh: Lapangan Utama A (Vinyl)"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full rounded-xl border border-slate-200 bg-white py-2.5 px-3.5 text-sm font-medium text-slate-700 outline-none transition placeholder:text-slate-300 focus:border-slate-400 focus:ring-4 focus:ring-slate-50"
+              required
+            />
           </div>
 
-          {/* INPUT EMAIL */}
           <div>
-            <label className="block text-xs font-extrabold uppercase tracking-wider text-slate-500 mb-1.5">Alamat Email Resmi</label>
-            <div className="relative">
-              <Mail size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-              <input
-                type="email"
-                required
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="w-full rounded-xl border border-slate-300 bg-white py-2.5 pl-11 pr-4 text-sm font-medium text-slate-800 outline-none transition focus:border-slate-500 placeholder:text-slate-400"
-                placeholder="contoh: namauser@email.com"
-              />
-            </div>
+            <label className="flex items-center gap-1.5 text-[11px] font-black uppercase tracking-wider text-slate-400 mb-1.5">
+              <Info size={12} className="text-slate-400" /> Tipe Lapangan
+            </label>
+            <select
+              value={type}
+              onChange={(e) => setType(e.target.value)}
+              className="w-full rounded-xl border border-slate-200 bg-white py-2.5 px-3.5 text-sm font-semibold text-slate-600 outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-50 appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2394A3B8%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E')] bg-[length:10px_auto] bg-[right_14px_center] bg-no-repeat"
+              required
+            >
+              <option value="">-- Pilih Tipe --</option>
+              <option value="Vinyl">Matras Vinyl</option>
+              <option value="Interlock">Interlock Polypropylene</option>
+              <option value="Sintetis">Rumput Sintetis</option>
+              <option value="Semen">Semen / Hard Court</option>
+            </select>
           </div>
 
-          {/* INPUT HANDPHONE */}
-          <div>
-            <label className="block text-xs font-extrabold uppercase tracking-wider text-slate-500 mb-1.5">Nomor Handphone (WhatsApp)</label>
-            <div className="relative">
-              <Phone size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-              <input
-                type="text"
-                value={formData.phone}
-                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                className="w-full rounded-xl border border-slate-300 bg-white py-2.5 pl-11 pr-4 text-sm font-medium text-slate-800 outline-none transition focus:border-slate-500 placeholder:text-slate-400"
-                placeholder="Contoh: 081234xxxxxx"
-              />
-            </div>
-          </div>
-
-          {/* INPUT PASSWORD BARU */}
-          <div>
-            <label className="block text-xs font-extrabold uppercase tracking-wider text-slate-500 mb-1.5">Kata Sandi / Password Akun</label>
-            <div className="relative">
-              <Lock size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-              <input
-                type="password"
-                required
-                value={formData.password}
-                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                className="w-full rounded-xl border border-slate-300 bg-white py-2.5 pl-11 pr-4 text-sm font-medium text-slate-800 outline-none transition focus:border-slate-500 placeholder:text-slate-400"
-                placeholder="Masukkan kata sandi akun..."
-              />
-            </div>
-          </div>
-
-          {/* RAGAM PILIHAN ROLE HAK AKSES */}
-          <div>
-            <label className="block text-xs font-extrabold uppercase tracking-wider text-slate-500 mb-2">Pilih Tingkatan Akun / Role</label>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              
-              {/* KARTU PILIHAN ROLE MEMBER */}
-              <div
-                onClick={() => setFormData({ ...formData, role: "User" })}
-                className={`border rounded-xl p-4 cursor-pointer transition flex items-start gap-3 ${
-                  formData.role === "User" ? "border-blue-500 bg-blue-50/20 ring-1 ring-blue-500/20" : "border-slate-200 hover:bg-slate-50"
-                }`}
-              >
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="flex items-center gap-1.5 text-[11px] font-black uppercase tracking-wider text-slate-400 mb-1.5">
+                <DollarSign size={12} className="text-slate-400" /> Harga / Jam
+              </label>
+              <div className="relative">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400">Rp</span>
                 <input
-                  type="radio"
-                  name="role"
-                  checked={formData.role === "User"}
-                  onChange={() => setFormData({ ...formData, role: "User" })}
-                  className="mt-1 accent-blue-600"
+                  type="number"
+                  placeholder="85000"
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)}
+                  className="w-full rounded-xl border border-slate-200 bg-white py-2.5 pl-9 pr-3 text-sm font-medium text-slate-700 outline-none transition placeholder:text-slate-300 focus:border-slate-400 focus:ring-4 focus:ring-slate-50"
+                  required
                 />
-                <div>
-                  <h4 className="text-sm font-bold text-slate-800">Role Member / User</h4>
-                  <p className="text-[11px] text-slate-500 mt-0.5">Akses terbatas standar. Hanya bisa melakukan order, sewa lapangan, dan melihat jadwal.</p>
-                </div>
               </div>
+            </div>
 
-              {/* KARTU PILIHAN ROLE ADMIN */}
-              <div
-                onClick={() => setFormData({ ...formData, role: "Admin" })}
-                className={`border rounded-xl p-4 cursor-pointer transition flex items-start gap-3 ${
-                  formData.role === "Admin" ? "border-rose-500 bg-rose-50/20 ring-1 ring-rose-500/20" : "border-slate-200 hover:bg-slate-50"
-                }`}
+            <div>
+              <label className="flex items-center gap-1.5 text-[11px] font-black uppercase tracking-wider text-slate-400 mb-1.5">
+                <Activity size={12} className="text-slate-400" /> Status Operasional
+              </label>
+              <select
+                value={String(isActive)}
+                onChange={(e) => setIsActive(e.target.value === "true")}
+                className="w-full rounded-xl border border-slate-200 bg-white py-2.5 px-3.5 text-sm font-semibold text-slate-600 outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-50 appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2394A3B8%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E')] bg-[length:10px_auto] bg-[right_14px_center] bg-no-repeat"
+                required
               >
-                <input
-                  type="radio"
-                  name="role"
-                  checked={formData.role === "Admin"}
-                  onChange={() => setFormData({ ...formData, role: "Admin" })}
-                  className="mt-1 accent-rose-600"
-                />
-                <div>
-                  <h4 className="text-sm font-bold text-slate-800">Role Full Admin</h4>
-                  <p className="text-[11px] text-slate-500 mt-0.5">Akses penuh sistem. Berhak mengelola lapangan, memantau semua user, dan melihat laporan.</p>
-                </div>
-              </div>
-
+                <option value="true">Tersedia (Ready)</option>
+                <option value="false">Perbaikan (Maintenance)</option>
+              </select>
             </div>
           </div>
 
-          {/* SUBMIT PANEL ACTION BUTTONS */}
-          <div className="flex gap-3 justify-end mt-4 pt-4 border-t border-slate-100">
+          <div>
+            <label className="flex items-center gap-1.5 text-[11px] font-black uppercase tracking-wider text-slate-400 mb-1.5">
+              <ImageIcon size={12} className="text-slate-400" /> URL Gambar Lapangan <span className="text-slate-300 normal-case font-medium">(opsional)</span>
+            </label>
+            <input
+              type="text"
+              placeholder="https://example.com/gambar-lapangan.jpg"
+              value={image}
+              onChange={(e) => setImage(e.target.value)}
+              className="w-full rounded-xl border border-slate-200 bg-white py-2.5 px-3.5 text-sm font-medium text-slate-700 outline-none transition placeholder:text-slate-300 focus:border-slate-400 focus:ring-4 focus:ring-slate-50"
+            />
+            {image && (
+              <div className="mt-2 w-full h-28 rounded-xl overflow-hidden border border-slate-200 bg-slate-50">
+                <img
+                  src={image}
+                  alt="Preview"
+                  className="w-full h-full object-cover"
+                  onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                />
+              </div>
+            )}
+          </div>
+
+          <div>
+            <label className="flex items-center gap-1.5 text-[11px] font-black uppercase tracking-wider text-slate-400 mb-1.5">
+              <AlignLeft size={12} className="text-slate-400" /> Deskripsi / Fasilitas
+            </label>
+            <textarea
+              placeholder="Fasilitas lapangan..."
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              className="w-full rounded-xl border border-slate-200 bg-white py-2.5 px-3.5 text-sm font-medium text-slate-700 outline-none transition h-24 resize-none placeholder:text-slate-300 focus:border-slate-400 focus:ring-4 focus:ring-slate-50"
+              required
+            />
+          </div>
+
+          <div className="flex gap-3 pt-3">
             <button
               type="button"
-              onClick={() => navigate(-1)}
-              className="px-5 py-2.5 rounded-xl border border-slate-300 text-sm font-bold text-slate-500 hover:bg-slate-50 transition"
+              onClick={() => setIsOpen(false)}
+              className="flex-1 rounded-xl bg-slate-100 hover:bg-slate-200/80 text-slate-600 py-2.5 text-xs font-bold transition-colors"
             >
               Batal
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="px-6 py-2.5 rounded-xl bg-slate-950 hover:bg-slate-800 disabled:bg-slate-400 text-sm font-bold text-white shadow-sm transition flex items-center gap-2"
+              className="flex-1 rounded-xl bg-slate-900 hover:bg-slate-800 disabled:bg-slate-400 text-white py-2.5 text-xs font-bold transition-all shadow-sm shadow-slate-900/10"
             >
-              {loading ? "Menyimpan..." : "Simpan Pengguna"}
+              {loading ? "Menyimpan..." : "Simpan Lapangan"}
             </button>
           </div>
-
         </form>
       </div>
     </div>
